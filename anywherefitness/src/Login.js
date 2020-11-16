@@ -25,7 +25,7 @@ export default function LoginForm(props) {
             <div className='form-group submit'>
                 <h1>Login</h1>
                 <div className='errors'>
-                    <div>{errors.name}</div>
+                    <div>{errors.email}</div>
                     <div>{errors.password}</div>
                 </div>
 

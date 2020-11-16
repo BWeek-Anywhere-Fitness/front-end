@@ -1,6 +1,6 @@
 import React from 'react';
 
-export function ClientSignUpForm(props) {
+export function StudentSignUpForm(props) {
     const {
         values, 
         submit, 
