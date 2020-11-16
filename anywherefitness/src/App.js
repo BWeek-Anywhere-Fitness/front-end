@@ -7,11 +7,11 @@ import axios from 'axios';
 
 // File Imports
 import './App.css';
-import schema from './Schema';
+import schema from './validation/Schema';
 import logo from './Anywhere Fitness.svg';
 import arrows from './data/constants';
-import Login from './Login';
-import { StudentSignUpForm, InstructorSignUpForm } from './SignUp'
+import Login from './components/Login';
+import { StudentSignUpForm, InstructorSignUpForm } from './components/SignUp'
 
 
 // Initial states
