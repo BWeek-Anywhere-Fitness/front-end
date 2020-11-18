@@ -13,7 +13,7 @@ export default yup.object().shape({
       
     password: yup
       .string()
-      .min(8, 'Must must be at least 8 characters long')
+      .min(5, 'Must must be at least 8 characters long')
       .required('Must be valid password'),
    
     terms: yup.boolean(),

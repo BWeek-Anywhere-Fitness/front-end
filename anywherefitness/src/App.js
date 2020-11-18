@@ -11,8 +11,7 @@ import schema from './validation/Schema';
 import logo from './Anywhere Fitness.svg';
 import arrows from './data/constants';
 import Login from './components/Login';
-import { StudentSignUpForm, InstructorSignUpForm } from './components/SignUp'
-
+import { StudentSignUpForm, InstructorSignUpForm } from './components/SignUp';
 
 // Initial states
 const initialFormValues = {
