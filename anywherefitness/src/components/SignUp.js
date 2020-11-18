@@ -1,26 +1,23 @@
-import { axiosWithAuth } from '../utils/axiosWithAuth';
+import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import * as yup from 'yup';
 import { useHistory } from 'react-router-dom';
 
 const schema = yup.object().shape({
-    name: yup
+    student_name: yup
       .string()
       .required("Name is required")
       .min(3, "Name must be at least 2 characters long"),
     
-    email: yup
+    student_email: yup
       .string()
       .email('Must be valid email address')
       .required('Must include email address'),
       
-    password: yup
+    student_password: yup
       .string()
       .min(8, 'Must must be at least 8 characters long')
       .required('Must be valid password'),
-    
-    terms: yup.boolean(),
-    check: yup.boolean(),
     });
 
 export default function SignUpForm(props) {
@@ -30,9 +27,9 @@ export default function SignUpForm(props) {
     const [initialFormValues, setInitialFormValues] = useState(
         {
             // Text inputs
-            name: '',
-            email: '',
-            password: '',
+            student_name: '',
+            student_email: '',
+            student_password: '',
           
           }
     );
@@ -41,9 +38,9 @@ export default function SignUpForm(props) {
     const [initialFormErrors, setInitialFormErrors] = useState(
         {
             // Text inputs
-            name: '',
-            email: '',
-            password: '',
+            student_name: '',
+            student_email: '',
+            student_password: '',
           
           }
     );
@@ -52,10 +49,15 @@ export default function SignUpForm(props) {
 
     const onSubmit = (evt) => {
       evt.preventDefault();
-
-        axiosWithAuth()
-          .post('https://back-end-active-fitness.herokuapp.com/api/students/new', initialFormValues)
-          .then((res) => {
+        console.log('this is working', initialFormValues);
+        axios
+        .post('https://back-end-active-fitness.herokuapp.com/api/students/new', initialFormValues)  
+        .then((res) => { 
+            setInitialFormValues({
+                student_name: '',
+                student_email: '',
+                student_password: '',
+            })
             push()
           })
           .catch((err) => {
@@ -105,7 +107,7 @@ export default function SignUpForm(props) {
                         <input 
                         value={initialFormValues.student_name}
                         onChange={onChange}
-                        name='name'
+                        name='student_name'
                         type='text'
                         />
                     </label>
@@ -114,7 +116,7 @@ export default function SignUpForm(props) {
                         <input 
                         value={initialFormValues.student_email}
                         onChange={onChange}
-                        name='email'
+                        name='student_email'
                         type='text'
                         />
                     </label>
@@ -123,7 +125,7 @@ export default function SignUpForm(props) {
                         <input 
                         value={initialFormValues.student_password}
                         onChange={onChange}
-                        name='password'
+                        name='student_password'
                         type='text'
                         />
                     </label>

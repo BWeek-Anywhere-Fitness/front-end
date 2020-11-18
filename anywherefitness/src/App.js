@@ -7,7 +7,6 @@ import axios from 'axios';
 
 // File Imports
 import './App.css';
-import schema from './validation/Schema';
 import logo from './Anywhere Fitness.svg';
 // import arrows from './data/constants';
 import Login from './components/Login';
