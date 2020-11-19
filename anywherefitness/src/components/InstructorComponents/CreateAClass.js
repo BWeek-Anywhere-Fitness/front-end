@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom';
 
 export default function Create() {
     const { push } = useHistory();
+    const id = localStorage.getItem('instructor_id');
 
     const initialLessonData = {
         class_name: "",
@@ -29,7 +30,7 @@ export default function Create() {
     const onSubmit = (event) => {
         event.preventDefault();
         axios
-            .post('https://back-end-active-fitness.herokuapp.com/api/instructors/:id/classes/new', lessonData)
+            .post(`https://back-end-active-fitness.herokuapp.com/api/instructors/${id}/classes/new`, lessonData)
             .then(result => {
                 console.log(result)
                 setLessonData(initialLessonData)
