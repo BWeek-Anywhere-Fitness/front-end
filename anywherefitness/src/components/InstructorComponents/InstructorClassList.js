@@ -2,11 +2,11 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import InstructorClassCard from './InstructorClassCard';
 
-function InstructorClassList({ classes }) {
+function InstructorClassList({ myClasses }) {
     return (
       <div className="classList">
         {
-          classes.map(cls => (
+          myClasses.map(cls => (
             <Link key={cls.id} to={`/classes/${cls.id}`}>
               <InstructorClassCard cls={cls} />
             </Link>
