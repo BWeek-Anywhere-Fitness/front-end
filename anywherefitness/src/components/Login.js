@@ -11,7 +11,7 @@ const schema = yup.object().shape({
       
     student_password: yup
       .string()
-      .min(8, 'Must must be at least 8 characters long')
+      .min(3, 'Must must be at least 3 characters long')
       .required('Must be valid password'),
     });
 
@@ -83,7 +83,6 @@ const { push } = useHistory();
         <form className='form-container-login' onSubmit={onSubmit}>
             <div className='form-group-login submit'>
                 <h1>Login</h1>
-
                 <div className='form-group-login inputs'>
                     <label>
                     Email

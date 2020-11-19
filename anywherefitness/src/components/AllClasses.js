@@ -1,12 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import StudentClassCard from './StudentClassCard';
+import StudentClassCard from './StudentComponents/StudentClassCard';
 
-function StudentClassList({ myClasses }) {
+function AllClasses({ allClasses }) {
     return (
       <div className="classList">
         {
-          myClasses.map(cls => (
+          allClasses.map(cls => (
             <Link key={cls.id} to={`/classes/${cls.id}`}>
               <StudentClassCard cls={cls} />
             </Link>
@@ -16,4 +16,4 @@ function StudentClassList({ myClasses }) {
     );
   }
   
-export default StudentClassList;
+export default AllClasses;

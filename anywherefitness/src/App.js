@@ -12,7 +12,8 @@ import logo from './Anywhere Fitness.svg';
 import Login from './components/Login';
 import SignUp from './components/SignUp';
 import Home from './components/Home';
-
+import StudentHome from './components/StudentComponents/StudentHome';
+import InstructorHome from './components/InstructorComponents/InstructorHome';
 
 export default function App() {
   
@@ -33,6 +34,12 @@ export default function App() {
           <Route exact path='/'>
             <Home />
           </Route>
+          <Route exact path='/student_home'>
+            <StudentHome/>
+          </Route>
+          {/* <Route exact path='/instructor_home'>
+            <InstructorHome/>
+          </Route> */}
         </Switch>
       </div>
   );
