@@ -58,7 +58,7 @@ export default function SignUpForm(props) {
                 student_email: '',
                 student_password: '',
             })
-            push('/student_login')
+            push('/login')
           })
           .catch((err) => {
             console.log(err);
