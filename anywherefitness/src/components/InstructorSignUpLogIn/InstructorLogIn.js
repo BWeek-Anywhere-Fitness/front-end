@@ -16,7 +16,6 @@ const schema = yup.object().shape({
 });
 
 const initialFormValues = {
-  instructor_name: '',
   instructor_email: '',
   instructor_password: '',
 }

@@ -20,24 +20,23 @@ const schema = yup.object().shape({
       .required('Must be valid password'),
     });
 
-export default function SignUpForm(props) {
-
-    const { push } = useHistory();
 
     const initialFormValues = {
-        instructor_name: '',
-        instructor_email: '',
-        instructor_password: ''
-    }
+      instructor_name: '',
+      instructor_email: '',
+      instructor_password: ''
+  }
 
-    const initialFormErrors = {
-        instructor_name: '',
-        instructor_email: '',
-        instructor_password: ''
-    }
-    
-    const [formValues, setFormValues] = useState({initialFormValues});
-    const [formErrors, setFormErrors] = useState({initialFormErrors})
+  const initialFormErrors = {
+      instructor_name: '',
+      instructor_email: '',
+      instructor_password: ''
+  }
+
+export default function SignUpForm() {
+    const { push } = useHistory();
+    const [formValues, setFormValues] = useState(initialFormValues);
+    const [formErrors, setFormErrors] = useState(initialFormErrors)
     
     const [initialDisabled, setInitialDisabled] = useState(true);
 
@@ -48,7 +47,7 @@ export default function SignUpForm(props) {
         .post('https://back-end-active-fitness.herokuapp.com/api/instructors/new', formValues)  
         .then((res) => { 
             setFormValues(initialFormValues)
-            push('') // Routes to instructor main menu
+            push('/instructor_login') // Routes to instructor main menu
           })
           .catch((err) => {
             console.log(err);
