@@ -17,10 +17,9 @@ const schema = yup.object().shape({
 
 
 export default function LoginForm() {
-const { push } = useHistory();
+  const { push } = useHistory();
 
     const initialFormValues = {
-        instructor_name: '',
         instructor_email: '',
         instructor_password: '',
     }
@@ -37,7 +36,7 @@ const { push } = useHistory();
             .then((res) => { 
                 console.log(res.data)
                 localStorage.setItem('token', res.data.token)
-                localStorage.setItem('instructor_id', res.data.student_id)
+                localStorage.setItem('instructor_id', res.data.instructor_id)
                 setFormValues(initialFormValues)
                 push('/instructor_home')
             })
