@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { axiosWithAuth } from '../utils/axiosWithAuth';
 import React, { useState, useEffect } from 'react';
 import * as yup from 'yup';
 import { useHistory } from 'react-router-dom';
@@ -17,51 +17,41 @@ const schema = yup.object().shape({
 
 
 // Login Form
+
+const initialFormValues = {
+    student_name: '',
+    student_email: '',
+    student_password: '',
+}
+
 export default function LoginForm(props) {
 const { push } = useHistory();
     
-    const [initialFormValues, setInitialFormValues] = useState(
-        {
-            // Text inputs
-            student_email: '',
-            student_password: '',
-          
-          }
-    );
-        
-    
-    const [initialFormErrors, setInitialFormErrors] = useState(
-        {
-            // Text inputs
-            student_email: '',
-            student_password: '',
-          
-          }
-    );
-    
+    const [formValues, setFormValues] = useState(initialFormValues)
     const [initialDisabled, setInitialDisabled] = useState(true);
-
+    const [initialFormErrors, setInitialFormErrors] = useState(initialFormValues);
+    
     const onSubmit = (evt) => {
       evt.preventDefault();
-        console.log('this is working', initialFormValues);
-        axios
-        .post('https://back-end-active-fitness.herokuapp.com/api/students/login', initialFormValues)  
-        .then((res) => { 
-            setInitialFormValues({
-                student_email: '',
-                student_password: '',
+        console.log('this is working', formValues);
+        axiosWithAuth()
+            .post('/students/login', formValues)  
+            .then((res) => { 
+                console.log(res.data)
+                localStorage.setItem('token', res.data.token)
+                localStorage.setItem('student_id', res.data.student_id)
+                setFormValues(initialFormValues)
+                push('/student_home')
             })
-            push()
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-    };
+            .catch((err) => {
+                console.log(err);
+            });
+        };
 
     const onChange = (evt) => {
-    const { name, value } = evt.target;
-    setInitialFormErrors(name, value);
-    setInitialFormValues({...initialFormValues, [evt.target.name]: evt.target.value})
+        const { name, value } = evt.target;
+        setInitialFormErrors(name, value);
+        setFormValues({...formValues, [evt.target.name]: evt.target.value})
     };
     
     const inputChange = (name, value) => {
@@ -83,10 +73,10 @@ const { push } = useHistory();
   };
     
   useEffect(() => {
-    schema.isValid(initialFormValues).then((valid) => {
+    schema.isValid(formValues).then((valid) => {
       setInitialDisabled(!valid);
     });
-  }, [initialFormValues]);
+  }, [formValues]);
   
 
     return (
@@ -98,7 +88,7 @@ const { push } = useHistory();
                     <label>
                     Email
                         <input 
-                        value={initialFormValues.student_email}
+                        value={formValues.student_email}
                         onChange={onChange}
                         name='student_email'
                         type='text'
@@ -107,7 +97,7 @@ const { push } = useHistory();
                     <label>
                     Password
                         <input 
-                        value={initialFormValues.student_password}
+                        value={formValues.student_password}
                         onChange={onChange}
                         name='student_password'
                         type='text'
