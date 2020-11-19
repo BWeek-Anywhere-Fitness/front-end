@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
+import { axiosWithAuth } from '../../utils/axiosWithAuth';
 
 export default function Create() {
     const { push } = useHistory();
@@ -23,18 +24,19 @@ export default function Create() {
         const { value, name } = event.target;
         setLessonData({
             ...lessonData,
-            [event.target.name]: event.target.value,
+            [event.target.name]: event.target.type === 'number' ? parseInt(event.target.value) : event.target.value
         });
     }
 
     const onSubmit = (event) => {
         event.preventDefault();
-        axios
-            .post(`https://back-end-active-fitness.herokuapp.com/api/instructors/${id}/classes/new`, lessonData)
+        console.log(lessonData)
+        axiosWithAuth()
+            .post(`instructors/${id}/classes/new`, lessonData)
             .then(result => {
                 console.log(result)
                 setLessonData(initialLessonData)
-                push() // This will send instructors over to a list of their lessons where they can edit / delete.
+                //push() // This will send instructors over to a list of their lessons where they can edit / delete.
             })
             .catch(err => {
                 console.log(err)
@@ -69,7 +71,7 @@ export default function Create() {
                 />
 
                 <input
-                type="text"
+                type="number"
                 name="class_duration"
                 value={lessonData.class_duration}
                 onChange={onChange}
@@ -93,14 +95,14 @@ export default function Create() {
                 />
 
                 <input
-                type="text"
+                type="number"
                 name="class_maxStudents"
                 value={lessonData.class_maxStudents}
                 onChange={onChange}
                 placeholder="Class Max Students"
                 />
+                <button>Create Your Class</button>
             </form>
-            <button disabled={disabled}>Create Your Class</button>
         </div>
     )
 }
