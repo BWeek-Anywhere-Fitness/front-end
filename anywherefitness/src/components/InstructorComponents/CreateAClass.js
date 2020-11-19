@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import { axiosWithAuth } from '../../utils/axiosWithAuth';
 import { useHistory } from 'react-router-dom';
 
 export default function Create() {
@@ -10,14 +10,14 @@ export default function Create() {
         class_name: "",
         class_type: "",
         class_start: "",
-        class_duration: 0,
+        class_duration: "",
         class_intensity: "",
         class_location: "",
-        class_maxStudents: 0
+        class_maxStudents: ""
     }
 
     const [lessonData, setLessonData] = useState(initialLessonData)
-    const [disabled, setDisabled] = useState(true);
+    // const [disabled, setDisabled] = useState(true);
 
     const onChange = (event) => {
         const { value, name } = event.target;
@@ -29,12 +29,12 @@ export default function Create() {
 
     const onSubmit = (event) => {
         event.preventDefault();
-        axios
+        axiosWithAuth()
             .post(`https://back-end-active-fitness.herokuapp.com/api/instructors/${id}/classes/new`, lessonData)
             .then(result => {
                 console.log(result)
                 setLessonData(initialLessonData)
-                push() // This will send instructors over to a list of their lessons where they can edit / delete.
+                // push() // This will send instructors over to a list of their lessons where they can edit / delete.
             })
             .catch(err => {
                 console.log(err)
@@ -43,6 +43,8 @@ export default function Create() {
 
     return (
         <div>
+            <h2>Create a Class</h2>
+            <br></br>
             <form onSubmit={onSubmit}>
                 <input
                 type="text"
@@ -51,7 +53,8 @@ export default function Create() {
                 onChange={onChange}
                 placeholder="Class Name"
                 />
-
+                <br></br>
+                <br></br>
                 <input
                 type="text"
                 name="class_type"
@@ -59,7 +62,8 @@ export default function Create() {
                 onChange={onChange}
                 placeholder="Class Type"
                 />
-
+                <br></br>
+                <br></br>
                 <input
                 type="text"
                 name="class_start"
@@ -67,7 +71,8 @@ export default function Create() {
                 onChange={onChange}
                 placeholder="Class Start"
                 />
-
+                <br></br>
+                <br></br>
                 <input
                 type="text"
                 name="class_duration"
@@ -75,7 +80,8 @@ export default function Create() {
                 onChange={onChange}
                 placeholder="Class Duration"
                 />
-                
+                <br></br>
+                <br></br>                
                 <input
                 type="text"
                 name="class_intensity"
@@ -83,7 +89,8 @@ export default function Create() {
                 onChange={onChange}
                 placeholder="Class Intensity"
                 />
-
+                <br></br>
+                <br></br>
                 <input
                 type="text"
                 name="class_location"
@@ -91,7 +98,8 @@ export default function Create() {
                 onChange={onChange}
                 placeholder="Class Location"
                 />
-
+                <br></br>
+                <br></br>
                 <input
                 type="text"
                 name="class_maxStudents"
@@ -99,8 +107,10 @@ export default function Create() {
                 onChange={onChange}
                 placeholder="Class Max Students"
                 />
+                <br></br>
+                <br></br>
+                <button>Create Your Class</button>
             </form>
-            <button disabled={disabled}>Create Your Class</button>
         </div>
     )
 }

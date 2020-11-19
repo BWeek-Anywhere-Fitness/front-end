@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import InstructorClassCard from './InstructorClassCard';
 
 function InstructorClassList({ myClasses }) {
+  console.log('MyClasses', myClasses)
     return (
       <div className="classList">
         {
@@ -15,5 +16,6 @@ function InstructorClassList({ myClasses }) {
       </div>
     );
   }
+  
   
   export default InstructorClassList;

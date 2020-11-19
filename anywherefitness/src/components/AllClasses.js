@@ -7,9 +7,9 @@ function AllClasses({ allClasses }) {
       <div className="classList">
         {
           allClasses.map(cls => (
-            <Link key={cls.id} to={`/classes/${cls.id}`}>
+            // <Link key={cls.id} to={`/classes/${cls.id}`}>
               <StudentClassCard cls={cls} />
-            </Link>
+            // </Link>
           ))
         }
       </div>

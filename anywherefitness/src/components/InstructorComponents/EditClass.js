@@ -3,7 +3,6 @@ import { useParams, useHistory } from 'react-router-dom';
 import { axiosWithAuth } from '../../utils/axiosWithAuth';
 
 const initialState = {
-    id: '',
     class_name: '',
     instructor_name: '',
     class_type: '',

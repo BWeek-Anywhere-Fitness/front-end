@@ -1,8 +1,9 @@
 import React from 'react';
 import EditClass from './EditClass';
 
-const InstructorClassCard = props => {
-    const { class_name, class_type, class_start, class_duration, class_intensity, class_location, instructor_name } = props.cls;
+const InstructorClassCard = (props) => {
+    console.log('InstructorClassCard', props)
+    const { class_name, class_type, class_start, class_duration, class_intensity, class_location, instructor_name } = props.cls
 
     return (
         <div className='classCard'>

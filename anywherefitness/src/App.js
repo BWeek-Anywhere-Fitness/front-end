@@ -17,6 +17,8 @@ import Home from './components/Home';
 import StudentHome from './components/StudentComponents/StudentHome';
 import InstructorHome from './components/InstructorComponents/InstructorHome';
 import CreateAClass from './components/InstructorComponents/CreateAClass';
+import EditClass from './components/InstructorComponents/EditClass';
+import Course from './components/InstructorComponents/InstructorClass';
 
 export default function App() {
   
@@ -52,6 +54,12 @@ export default function App() {
             </Link>
             <br></br>
             <InstructorHome/>
+          </Route>
+          <Route exact path ='/classes/:id'>
+            <Course/>
+          </Route>
+          <Route exact path='/edit-class/:id'>
+            <EditClass/>
           </Route>
         </Switch>
       </div>

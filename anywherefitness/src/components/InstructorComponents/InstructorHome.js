@@ -43,6 +43,7 @@ const InstructorHome = () => {
             })
     }
 
+    console.log('props before', myClasses)
     return (
         <div className='Home'>
             <h2>My Classes</h2>
