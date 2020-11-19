@@ -1,4 +1,4 @@
-import { axiosWithAuth } from '../utils/axiosWithAuth';
+import { axiosWithAuth } from '../../utils/axiosWithAuth';
 import React, { useState, useEffect } from 'react';
 import * as yup from 'yup';
 import { useHistory } from 'react-router-dom';
@@ -15,15 +15,14 @@ const schema = yup.object().shape({
       .required('Must be valid password'),
 });
 
+const initialFormValues = {
+  instructor_name: '',
+  instructor_email: '',
+  instructor_password: '',
+}
 
 export default function LoginForm() {
 const { push } = useHistory();
-
-    const initialFormValues = {
-        instructor_name: '',
-        instructor_email: '',
-        instructor_password: '',
-    }
     
     const [formValues, setFormValues] = useState(initialFormValues)
     const [initialDisabled, setInitialDisabled] = useState(true);
@@ -37,7 +36,7 @@ const { push } = useHistory();
             .then((res) => { 
                 console.log(res.data)
                 localStorage.setItem('token', res.data.token)
-                localStorage.setItem('instructor_id', res.data.student_id)
+                localStorage.setItem('instructor_id', res.data.instructor_id)
                 setFormValues(initialFormValues)
                 push('/instructor_home')
             })
