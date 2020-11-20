@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { axiosWithAuth } from '../../utils/axiosWithAuth';
 import { useHistory } from 'react-router-dom';
+import { axiosWithAuth } from '../../utils/axiosWithAuth';
 
 export default function Create() {
     const { push } = useHistory();
@@ -23,18 +23,21 @@ export default function Create() {
         const { value, name } = event.target;
         setLessonData({
             ...lessonData,
-            [event.target.name]: event.target.value,
+            [event.target.name]: event.target.type === 'number' ? parseInt(event.target.value) : event.target.value
         });
     }
 
     const onSubmit = (event) => {
         event.preventDefault();
+
+        console.log(lessonData)
         axiosWithAuth()
-            .post(`https://back-end-active-fitness.herokuapp.com/api/instructors/${id}/classes/new`, lessonData)
+            .post(`instructors/${id}/classes/new`, lessonData)
             .then(result => {
                 console.log(result)
                 setLessonData(initialLessonData)
-                // push() // This will send instructors over to a list of their lessons where they can edit / delete.
+                //push() // This will send instructors over to a list of their lessons where they can edit / delete.
+
             })
             .catch(err => {
                 console.log(err)
@@ -74,7 +77,7 @@ export default function Create() {
                 <br></br>
                 <br></br>
                 <input
-                type="text"
+                type="number"
                 name="class_duration"
                 value={lessonData.class_duration}
                 onChange={onChange}
@@ -101,14 +104,16 @@ export default function Create() {
                 <br></br>
                 <br></br>
                 <input
-                type="text"
+                type="number"
                 name="class_maxStudents"
                 value={lessonData.class_maxStudents}
                 onChange={onChange}
                 placeholder="Class Max Students"
                 />
+
                 <br></br>
                 <br></br>
+      
                 <button>Create Your Class</button>
             </form>
         </div>
