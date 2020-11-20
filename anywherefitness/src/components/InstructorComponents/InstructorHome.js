@@ -19,6 +19,10 @@ const InstructorHome = () => {
         getAllClasses();
     },[])
 
+    // useEffect(() => {
+    //     getMyClasses();
+    // },[])
+
     const getMyClasses = () => {
         axiosWithAuth()
             .get(`/instructors/${id}/classes`)
@@ -43,12 +47,14 @@ const InstructorHome = () => {
             })
     }
 
+    console.log('props before', myClasses)
     return (
         <div className='Home'>
             <h2>My Classes</h2>
             <InstructorClassList myClasses={myClasses}/>
 
             <h2>All Classes</h2>
+            {/* <AllClasses/> */}
             <AllClasses allClasses={allClasses}/>
         </div>
     )

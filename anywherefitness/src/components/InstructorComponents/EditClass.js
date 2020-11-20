@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { axiosWithAuth } from '../../utils/axiosWithAuth';
+import axios from 'axios';
 
 const initialState = {
-    id: '',
     class_name: '',
-    instructor_name: '',
     class_type: '',
     class_start: '',
     class_duration: '',
@@ -15,15 +14,36 @@ const initialState = {
 }
 
 const EditClass = (props) => {
-    const [editing, setEditing] = useState()
+    // console.log('Props', props)
+    // const { class_name, class_type, class_start, class_duration, class_intensity, class_location, class_maxStudents } = props
+
+    const [editing, setEditing] = useState({
+        class_name: props.class_name,
+        class_type: props.class_type,
+        class_start: props.class_start,
+        class_duration: props.class_duration,
+        class_intensity: props.class_intensity,
+        class_location: props.class_location,
+        class_maxStudents: props.class_maxStudents
+    })
+
     const { id } = useParams()
     const { push } = useHistory()
 
     useEffect(() => {
-        axiosWithAuth()
-            .get(`/classes/${id}`)
+        axios
+            .get(`https://back-end-active-fitness.herokuapp.com/api/classes/${id}`)
             .then(res => {
-                setEditing(res.data)
+                console.log('useEffect axiosWithAuth', res.data)
+                setEditing({
+                    class_name: res.data.class_name,
+                    class_type: res.data.class_type,
+                    class_start: res.data.class_start,
+                    class_duration: res.data.class_duration,
+                    class_intensity: res.data.class_intensity,
+                    class_location: res.data.class_location,
+                    class_maxStudents: res.data.class_maxStudents
+                })
             })
             .catch(err => {
                 console.log(err)
@@ -35,24 +55,26 @@ const EditClass = (props) => {
             ...editing,
             [e.target.name]: e.target.value,
         })
+        console.log(editing)
     }
 
     const onSubmit = e => {
         e.preventDefault()
+        console.log('editing', editing)
         axiosWithAuth()
             .put(`/classes/${id}`, editing)
             .then(res => {
-                props.setClassList(
-                    props.classList.map((cls) => {
-                        if(cls.id ===id){
-                            return res.data
-                        }else {
-                            return cls
-                        }
-                    })
-                )
-                push('/instructor_home')
+                // props.setClassList(
+                //     props.classList.map((cls) => {
+                //         if(cls.id ===id){
+                //             return res.data
+                //         }else {
+                //             return cls
+                //         }
+                //     })
+                // )
                 setEditing(initialState)
+                push('/instructor_home')
             })
             .catch(err => {
                 console.log(err)
@@ -63,62 +85,69 @@ const EditClass = (props) => {
         <div>
             <h2>Edit Class</h2>
             <form onSubmit={onSubmit}>
-                <input
-                    name='class_name'
-                    type='text'
-                    placeholder='Class Name'
-                    value={editing.class_name}
-                    onChange={onChange}
+            <input
+                type="text"
+                name="class_name"
+                value={editing.class_name}
+                onChange={onChange}
+                placeholder="Class Name"
                 />
+                <br></br>
+                <br></br>
                 <input
-                    name='instructor_name'
-                    type='text'
-                    placeholder='Instructor Name'
-                    value={editing.instructor_name}
-                    onChange={onChange}
+                type="text"
+                name="class_type"
+                value={editing.class_type}
+                onChange={onChange}
+                placeholder="Class Type"
                 />
+                <br></br>
+                <br></br>
                 <input
-                    name='class_type'
-                    type='text'
-                    placeholder='Class Type'
-                    value={editing.class_type}
-                    onChange={onChange}
+                type="text"
+                name="class_start"
+                value={editing.class_start}
+                onChange={onChange}
+                placeholder="Class Start"
                 />
+                <br></br>
+                <br></br>
                 <input
-                    name='class_start'
-                    type='time'
-                    placeholder='Class Start'
-                    value={editing.class_start}
-                    onChange={onChange}
+                type="text"
+                name="class_duration"
+                value={editing.class_duration}
+                onChange={onChange}
+                placeholder="Class Duration"
                 />
+                <br></br>
+                <br></br>                
                 <input
-                    name='class_duration'
-                    type='number'
-                    placeholder='Class Duration'
-                    value={editing.class_duration}
-                    onChange={onChange}
+                type="text"
+                name="class_intensity"
+                value={editing.class_intensity}
+                onChange={onChange}
+                placeholder="Class Intensity"
                 />
+                <br></br>
+                <br></br>
                 <input
-                    name='class_intensity'
-                    type='text'
-                    placeholder='Class Intensity'
-                    value={editing.class_intensity}
-                    onChange={onChange}
+                type="text"
+                name="class_location"
+                value={editing.class_location}
+                onChange={onChange}
+                placeholder="Class Location"
                 />
+                <br></br>
+                <br></br>
                 <input
-                    name='class_location'
-                    type='text'
-                    placeholder='Class Location'
-                    value={editing.class_location}
-                    onChange={onChange}
+                type="text"
+                name="class_maxStudents"
+                value={editing.class_maxStudents}
+                onChange={onChange}
+                placeholder="Class Max Students"
                 />
-                <input
-                    name='class_maxStudents'
-                    type='number'
-                    placeholder='Max Class Size'
-                    value={editing.class_maxStudents}
-                    onChange={onChange}
-                />
+                <br></br>
+                <br></br>
                 <button>Save changes</button>
             </form>
         </div>

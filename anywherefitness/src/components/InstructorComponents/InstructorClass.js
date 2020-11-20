@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { axiosWithAuth } from '../../utils/axiosWithAuth';
+import axios from 'axios';
 import { useParams, useHistory } from 'react-router-dom';
-import ClassCard from './InstructorClassCard';
+import InstructorClassCard from './InstructorClassCard';
 
 function Course(props) {
     const [cls, setCls] = useState(null)
@@ -40,7 +41,7 @@ function Course(props) {
 
     return (
         <div className='movie-container'>
-            <ClassCard cls={cls}/>
+            <InstructorClassCard cls={cls}/>
 
             <button onClick={() => {
                 push(`/edit-class/${id}`)
