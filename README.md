@@ -1,7 +1,7 @@
 # front-end
-David Chang, Unit 3
-Elijah Elliot, Unit 3
-Bria Barry, Unit 3
+David Chang, Unit 3    
+Elijah Elliot, Unit 3    
+Bria Barry, Unit 2   
 
 
 ## David
