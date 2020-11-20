@@ -19,10 +19,28 @@ import InstructorHome from './components/InstructorComponents/InstructorHome';
 import CreateAClass from './components/InstructorComponents/CreateAClass';
 import EditClass from './components/InstructorComponents/EditClass';
 import Course from './components/InstructorComponents/InstructorClass';
+import { axiosWithAuth } from './utils/axiosWithAuth';
 
 export default function App() {
-  
   const { push } = useHistory();
+
+  const [classList, setClassList] = useState([]);
+
+  const getClassList = () => {
+    axios
+      .get('https://back-end-active-fitness.herokuapp.com/api/classes')
+      .then(res => {
+        console.log('setClassList', res.data)
+        setClassList(res.data)
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }
+
+  useEffect(() => {
+    getClassList()
+  },[])
 
   return (
     <div className="App">
@@ -55,11 +73,11 @@ export default function App() {
             <br></br>
             <InstructorHome/>
           </Route>
-          <Route exact path ='/classes/:id'>
+          <Route path ='/classes/:id'>
             <Course/>
           </Route>
-          <Route exact path='/edit-class/:id'>
-            <EditClass/>
+          <Route path='/edit-class/:id'>
+            <EditClass classList={classList} setClassList={setClassList}/>
           </Route>
         </Switch>
       </div>

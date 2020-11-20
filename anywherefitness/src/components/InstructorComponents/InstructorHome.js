@@ -19,6 +19,10 @@ const InstructorHome = () => {
         getAllClasses();
     },[])
 
+    // useEffect(() => {
+    //     getMyClasses();
+    // },[])
+
     const getMyClasses = () => {
         axiosWithAuth()
             .get(`/instructors/${id}/classes`)
@@ -50,6 +54,7 @@ const InstructorHome = () => {
             <InstructorClassList myClasses={myClasses}/>
 
             <h2>All Classes</h2>
+            {/* <AllClasses/> */}
             <AllClasses allClasses={allClasses}/>
         </div>
     )

@@ -10,7 +10,7 @@ function Course(props) {
     const { push } = useHistory()
     
     const fetchCls = (id) => {
-        axios
+        axiosWithAuth()
             .get(`/classes/${id}`)
             .then(res => {
                 console.log(res.data)
@@ -41,7 +41,7 @@ function Course(props) {
 
     return (
         <div className='movie-container'>
-            <InstructorClassCard/>
+            <InstructorClassCard cls={cls}/>
 
             <button onClick={() => {
                 push(`/edit-class/${id}`)
